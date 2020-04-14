@@ -21,7 +21,7 @@ public class CoronaVirusDataService {
 
 	private static final String COVIDURL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
 	
-	private List<LocationStat> listLocation = new ArrayList<>();
+	private static List<LocationStat> listLocation = new ArrayList<>();
 	
 	public List<LocationStat> getListLocation() {
 		return listLocation;
