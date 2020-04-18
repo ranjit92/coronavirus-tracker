@@ -3,7 +3,10 @@ package com.corona.virus.coronavirustracker.service;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -38,18 +41,37 @@ public class CoronaVirusDataService {
 		ResponseEntity<String> response = restTemplate.getForEntity(COVIDURL, String.class);
 		StringReader csvReader = new StringReader(response.getBody());
 		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvReader);
+		
+		Map<String, LocationStat> countryTotal = new HashMap<>();
 		for (CSVRecord record : records) {
 			LocationStat locationStat = new LocationStat();
 		    
-			locationStat.setState(record.get("Province/State"));
-		    locationStat.setCountry(record.get("Country/Region"));
 		    int latestTotal = Integer.parseInt(record.get(record.size()-1));
 		    int oneDayPrevious = Integer.parseInt(record.get(record.size()-2)); 
-		    locationStat.setLatestTotalCase(latestTotal);
-		    locationStat.setDiff(latestTotal-oneDayPrevious);
-		    newListLocation.add(locationStat);
+		    
+		    if(countryTotal.containsKey(record.get("Country/Region"))) {
+		    	locationStat = countryTotal.get(record.get("Country/Region"));
+		    	int newTotal = locationStat.getLatestTotalCase() + latestTotal;
+		    	locationStat.setLatestTotalCase(newTotal);
+		    	locationStat.setDiff(locationStat.getDiff()+(latestTotal-oneDayPrevious));
+		    	countryTotal.put(record.get("Country/Region"), locationStat);
+		    }
+		    else {
+		    	locationStat.setCountry(record.get("Country/Region"));
+		    	locationStat.setLatestTotalCase(latestTotal);
+		    	locationStat.setDiff(latestTotal-oneDayPrevious);
+		    	
+		    	countryTotal.put(record.get("Country/Region"), locationStat);
+		    }
+		    
 		}
+		
+		newListLocation = new ArrayList<>(countryTotal.values());
+		Collections.sort(newListLocation, (object1,object2) -> object2.getLatestTotalCase()-object1.getLatestTotalCase());
+		System.out.println(newListLocation);
+		
 		this.listLocation = newListLocation;
+		
 	
 	}
 }

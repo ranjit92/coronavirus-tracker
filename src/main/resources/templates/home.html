@@ -26,7 +26,6 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>State</th>
 					<th>Country</th>
 					<th>Total Cases</th>
 					<th>New Cases</th>
@@ -34,7 +33,6 @@
 			</thead>
 			<tbody>
 				<tr th:each="locationStat : ${listLocation}">
-					<td th:text="${locationStat.state}"></td>
 					<td th:text="${locationStat.country}"></td>
 					<td th:text="${locationStat.latestTotalCase}">0</td>
 					<td th:text="${locationStat.diff}">0</td>

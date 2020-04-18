@@ -1,5 +1,6 @@
 package com.corona.virus.coronavirustracker.controller;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,12 @@ public class HomeController {
 		
 		List<LocationStat> listLocation = trackerService.getListLocation();
 		int totalCase = listLocation.stream().mapToInt(stat -> stat.getLatestTotalCase()).sum();
+		
+		NumberFormat myFormat = NumberFormat.getInstance();
+        myFormat.setGroupingUsed(true);
 
 		model.addAttribute("listLocation", listLocation);
-		model.addAttribute("totalcase", totalCase);
+		model.addAttribute("totalcase",  myFormat.format(totalCase));
 		return "home";
 	}
 }
