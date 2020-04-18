@@ -43,7 +43,10 @@ public class CoronaVirusDataService {
 		    
 			locationStat.setState(record.get("Province/State"));
 		    locationStat.setCountry(record.get("Country/Region"));
-		    locationStat.setLatestTotalCase(Integer.parseInt(record.get(record.size()-1)));
+		    int latestTotal = Integer.parseInt(record.get(record.size()-1));
+		    int oneDayPrevious = Integer.parseInt(record.get(record.size()-2)); 
+		    locationStat.setLatestTotalCase(latestTotal);
+		    locationStat.setDiff(latestTotal-oneDayPrevious);
 		    newListLocation.add(locationStat);
 		}
 		this.listLocation = newListLocation;

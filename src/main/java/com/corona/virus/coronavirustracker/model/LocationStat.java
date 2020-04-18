@@ -11,4 +11,6 @@ public class LocationStat {
 	
 	private int latestTotalCase;
 	
+	private int diff;
+	
 }
