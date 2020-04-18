@@ -9,22 +9,23 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-
+<link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/styles/cssandjs/search.js}"></script>
 </head>
 
 <body>
 	<div class="container">
 		<h1>Coronavirus Tracker</h1>
 
-		<div class="jumbotron" style="background:#cce4e8">
-			<h1 class="display-4"  th:text="${totalcase}"></h1>
+		<div class="jumbotron" style="background: #cce4e8">
+			<h1 class="display-4" th:text="${totalcase}"></h1>
 			<p class="lead">Total case Reported till today</p>
 
 
 		</div>
-
-		<table class="table table-striped">
-			<thead>
+		<input type="text" id="countryInput" onkeyup="searchFunction()" placeholder="Search for Country.." title="Type in a name">
+		<table class="table table-striped" id="covidTable">
+			<thead style="background: #cce4e8">
 				<tr>
 					<th>Country</th>
 					<th>Total Cases</th>

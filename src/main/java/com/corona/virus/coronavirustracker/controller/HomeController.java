@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.corona.virus.coronavirustracker.model.LocationStat;
 import com.corona.virus.coronavirustracker.service.CoronaVirusDataService;
+import com.corona.virus.coronavirustracker.service.CoronaVirusDataServiceImpl;
 
 @Controller
 public class HomeController {
