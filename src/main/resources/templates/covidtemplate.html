@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Coronavirus Tracker</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/styles/cssandjs/search.js}"></script>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Coronavirus Tracker</h1>
+
+		<div class="jumbotron" style="background: #cce4e8">
+			<h1 class="display-4" th:text="${totalcase}"></h1>
+			<p class="lead">Total case Reported till today</p>
+
+
+		</div>
+		<input type="text" id="countryInput" onkeyup="searchFunction()" placeholder="Search for Country.." title="Type in a name">
+		<table class="table table-striped" id="covidTable" border="1">
+			<thead style="background: #cce4e8">
+				<tr>
+					<th>Country</th>
+					<th>Total Cases</th>
+					<th>New Cases</th>
+					<th>Total Deaths</th>
+					<th>New Deaths</th>
+					<th>Total Recovered</th>
+					<th>Active Cases</th>
+					<th>Critical Cases</th>
+					<th>Total Tests</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="covidFlat : ${covidFlatList}">
+					<td th:text="${covidFlat.country}"></td>
+					<td th:text="${covidFlat.totalCases}"></td>
+					<td th:text="${covidFlat.newCases}"></td>
+					<td th:text="${covidFlat.totalDeaths}"></td>
+					<td th:text="${covidFlat.newDeaths}"></td>
+					<td th:text="${covidFlat.totalRecovered}"></td>
+					<td th:text="${covidFlat.activeCases}"></td>
+					<td th:text="${covidFlat.criticalCases}"></td>
+					<td th:text="${covidFlat.totalTests}"></td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- <iframe width="1024" height="576" src="https://app.developer.here.com/coronavirus/" frameborder="0"></iframe> -->
+</body>
+
+</html>
